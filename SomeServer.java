@@ -26,7 +26,7 @@ public class SomeServer extends Thread {
                 Serv.messages.add(message);
                 System.out.println(message);
 
-                synchronized (this) {
+                synchronized (SomeServer.class) {
                     for (SomeServer someServer : Serv.ss) {
                         someServer.seedless(message);
                     }
