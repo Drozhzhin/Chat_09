@@ -26,7 +26,7 @@ public class Client2 {
 
     public void start(){
         try {
-            client = new Socket("192.168.172.3", 9000);
+            client = new Socket("192.168.10.111", 9000);
             writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
             reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
         } catch (IOException e) {

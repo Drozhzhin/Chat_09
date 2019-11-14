@@ -21,7 +21,6 @@ public class Client {
             new Form();
             start();
             new Reader();
-
         }
 
             public void start(){
@@ -35,39 +34,31 @@ public class Client {
 
             }
 
-                public class Reader extends Thread{
-
-                        Thread  th;
-
-                        public Reader(){
-                            th = new Thread(this);
-                            th.start();
-                            }
-
-
-                    @Override
-                    public void run() {
-
-                        System.out.println("Thread is run");
-                            try {
-                        while (true){
-
-                                message = reader.readLine();
-
-                                if(message != null) {
-                                    System.out.println(message);
-                                    area.append(message + "\n");
-                                }
-
-                            }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-
-
-                    }
+            public class Reader extends Thread
+            {
+                Thread th;
+                public Reader() {
+                    th = new Thread(this);
+                    th.start();
                 }
 
+                @Override
+                public void run() {
+                    System.out.println("Thread is run");
+                    try {
+                        while (true) {
+                            message = reader.readLine();
+
+                            if (message != null) {
+                                System.out.println(message);
+                                area.append(message + "\n");
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
 
     public class Form{
@@ -102,8 +93,7 @@ public class Client {
 
                     field.setText("");
                     field.grabFocus();
-                    start();
-
+                    //start();
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -128,7 +118,7 @@ public class Client {
 
                     field.setText("");
                     field.grabFocus();
-                    start();
+                    //start();
 
 
                 } catch (IOException ex) {

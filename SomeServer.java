@@ -7,47 +7,39 @@ public class SomeServer extends Thread {
     BufferedWriter writer;
     String message;
 
-
-
-            public SomeServer(Socket client){
-             this.client = client;
-
-                try {
-                    reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-             start();
-            }
+    public SomeServer(Socket client) {
+        this.client = client;
+        try {
+            reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        start();
+    }
 
     @Override
     public void run() {
+        try {
+            while (true) {
+                message = reader.readLine();
+                Serv.messages.add(message);
+                System.out.println(message);
 
-                try {
-                    while (true) {
-                        message = reader.readLine();
-                        Serv.messages.add(message);
-                        System.out.println(message);
-
-
-                        for(SomeServer someServer : Serv.ss){
-
-                            someServer.seedless(message);
-
-                        }
-
-
+                synchronized (this) {
+                    for (SomeServer someServer : Serv.ss) {
+                        someServer.seedless(message);
                     }
-                } catch (Exception ignored) {}
-
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-                public void seedless(String messy) throws IOException {
-                writer.write(messy + "\n");
-                writer.flush();
-
-                }
+    public void seedless(String messy) throws IOException {
+        writer.write(messy + "\n");
+        writer.flush();
+    }
 
 }

@@ -10,22 +10,18 @@ import java.util.List;
 
 
 public class Serv {
-
-
     static ArrayList<String> messages;
     public static List<Socket> clients;
     public static List<SomeServer> ss;
     public static final int PORT = 9000;
     public static ServerSocket server;
 
-
-
     public static void main(String[] args) {
 
+        messages = new ArrayList<>();
+        clients = new ArrayList<>();
+        ss = new ArrayList<>();
 
-            messages = new ArrayList<>();
-            clients = new ArrayList<>();
-            ss = new ArrayList<>();
         try {
             server = new ServerSocket(PORT);
             Socket client;
@@ -34,14 +30,12 @@ public class Serv {
             while(true){
                 client = server.accept();
                 System.out.println(client + " is accepted.");
-                clients.add(client);
 
+                clients.add(client);
+                System.out.println("clients size: "+ clients.size());
 
                 ss.add(new SomeServer(client));
-
-
             }
-
         } catch (IOException e) {e.printStackTrace();}
 
 
